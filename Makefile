@@ -1,17 +1,25 @@
 NAME = libftprintf.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+INCDIR=./include
+CFLAGS = -Wall -Wextra -Werror -I$(INCDIR)
 
-SRC = ft_printf.c
+SRC = ft_printf.c ft_printhex.c ft_printint.c ft_printuint.c ft_printptr.c
+OBJ = $(SRC:.c=.o)
 
-HEADER = libftprintf.h
+LIBFTDIR = libft
+LIBFT = libft.a
+HEADER=$(INCDIR)/ft_printf.h
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(LIBFT)
+	@cp $(LIBFTDIR)/$(LIBFT) $(NAME)
 	@ar rcs $(NAME) $(OBJ)
 	@echo "Archive $(NAME) created successfully!"
+
+$(LIBFT):
+	@make -C $(LIBFTDIR)
 
 %.o: %.c $(HEADER)
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -19,11 +27,13 @@ $(NAME): $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
+	@make -C $(LIBFTDIR) clean
 	@echo "Object files removed."
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "$(NAME) removed"
+	@make -C $(LIBFTDIR) fclean
+	@echo "$(NAME) removed."
 
 re: fclean all
 

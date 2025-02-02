@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TakeshiKawauchiya <TakeshiKawauchiya@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 00:03:55 by TakeshiKawa       #+#    #+#             */
-/*   Updated: 2024/12/06 00:08:46 by TakeshiKawa      ###   ########.fr       */
+/*   Created: 2024/11/12 14:04:51 by takwauc           #+#    #+#             */
+/*   Updated: 2024/11/30 01:40:11 by TakeshiKawa      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_PRINTF_H
-# define LIBFT_PRINTF_H
-
-# include "libft/libft.h"
-
-#endif
+int	ft_isalpha(int c)
+{
+	return (('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z'));
+}
