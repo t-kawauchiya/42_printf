@@ -6,7 +6,7 @@
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 21:14:15 by takawauc          #+#    #+#             */
-/*   Updated: 2025/01/31 21:30:04 by takawauc         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:48:14 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,40 @@ int	ft_intlen(int num)
 	return (ret);
 }
 
-void	ft_putint(int num)
+int	ft_putint(int num)
 {
+	char	c;
+
 	if (num == INT_MIN)
+		return (write(STDOUT_FILENO, "-2147483648", 11));
+	if (num < 0)
 	{
-		ft_putstr_fd("-2147483648", 1);
-		return ;
-	}
-	else if (num < 0)
-	{
-		ft_putchar_fd('-', 1);
+		c = '-';
+		if (-1 == write(STDOUT_FILENO, &c, 1))
+			return (-1);
 		num = -num;
 	}
 	if (num < 10)
-		ft_putchar_fd(num + '0', 1);
+	{
+		c = num + '0';
+		if (-1 == write(STDOUT_FILENO, &c, 1))
+			return (-1);
+	}
 	else
 	{
-		ft_putint(num / 10);
-		ft_putchar_fd(num % 10 + '0', 1);
+		c = num % 10 + '0';
+		if (-1 == ft_putint(num / 10) || -1 == write(STDOUT_FILENO, &c, 1))
+			return (-1);
 	}
+	return (0);
 }
 
 int	ft_printint(int num)
 {
 	int	ret;
 
+	if (-1 == ft_putint(num))
+		return (-1);
 	ret = ft_intlen(num);
-	ft_putint(num);
 	return (ret);
 }

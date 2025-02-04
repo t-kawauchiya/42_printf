@@ -6,41 +6,39 @@
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 00:02:37 by TakeshiKawa       #+#    #+#             */
-/*   Updated: 2025/02/01 15:35:35 by takawauc         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:57:45 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_printf.h"
 
-int	ft_format(char format, va_list args);
-
-int	ft_printpercent(void)
-{
-	ft_putchar_fd('%', STDOUT_FILENO);
-	return (1);
-}
-
 int	ft_printstr(char *str)
 {
+	int	ret;
+
 	if (!str)
-	{
-		ft_putstr_fd("(null)", STDOUT_FILENO);
-		return (ft_strlen("(null)"));
-	}
-	ft_putstr_fd(str, STDOUT_FILENO);
-	return (ft_strlen(str));
+		str = "(null)";
+	ret = ft_strlen(str);
+	if (-1 == write(1, str, ret))
+		return (-1);
+	return (ret);
 }
 
-int	ft_format(char format, va_list args)
+int	ft_printchar(int num)
+{
+	char	c;
+
+	c = (char)num;
+	return (write(STDOUT_FILENO, &c, 1));
+}
+
+int	ft_format(const char format, va_list args)
 {
 	int	ret;
 
 	ret = 0;
 	if ('c' == format)
-	{
-		ft_putchar_fd(va_arg(args, int), 1);
-		ret = 1;
-	}
+		ret = ft_printchar(va_arg(args, int));
 	else if ('s' == format)
 		ret = ft_printstr(va_arg(args, char *));
 	else if ('p' == format)
@@ -50,36 +48,35 @@ int	ft_format(char format, va_list args)
 	else if ('u' == format)
 		ret = ft_printuint(va_arg(args, unsigned int));
 	else if ('x' == format || 'X' == format)
-	{
 		ret = ft_printhex(va_arg(args, unsigned int), format);
-	}
 	else
-		ret = ft_printpercent();
+		ret = ft_printchar('%');
 	return (ret);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	int		i;
 	va_list	args;
 	int		ret;
+	int		outputlen;
 
 	ret = 0;
+	if (!format)
+		return (-1);
 	va_start(args, format);
-	i = 0;
-	while (format[i])
+	while (*format)
 	{
-		if ('%' == format[i])
+		if ('%' == *format)
 		{
-			ret += ft_format(format[i + 1], args);
-			i++;
+			outputlen = ft_format(*(format + 1), args);
+			format++;
 		}
 		else
-		{
-			ft_putchar_fd(format[i], 1);
-			ret++;
-		}
-		i++;
+			outputlen = ft_printchar(*format);
+		format++;
+		if (-1 == outputlen)
+			return (-1);
+		ret += outputlen;
 	}
 	va_end(args);
 	return (ret);

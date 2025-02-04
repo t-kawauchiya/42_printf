@@ -1,49 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printuint.c                                     :+:      :+:    :+:   */
+/*   ft_printhex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 21:16:42 by takawauc          #+#    #+#             */
-/*   Updated: 2025/01/31 21:17:37 by takawauc         ###   ########.fr       */
+/*   Created: 2025/01/31 20:33:41 by takawauc          #+#    #+#             */
+/*   Updated: 2025/02/02 19:04:27 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_printf.h"
 
-void	ft_putuint(unsigned int num)
+int	ft_puthex(unsigned int num, char format)
 {
-	if (num < 10)
+	char	c;
+
+	if (num > 15)
 	{
-		ft_putchar_fd(num + '0', 1);
+		if (-1 == ft_puthex(num / 16, format) || -1 == ft_puthex(num % 16,
+				format))
+			return (-1);
+	}
+	else if (num > 9)
+	{
+		c = num - 10 + format + 'a' - 'x';
+		return (write(STDOUT_FILENO, &c, 1));
 	}
 	else
 	{
-		ft_putint(num / 10);
-		ft_putchar_fd(num % 10 + '0', 1);
+		c = num + '0';
+		return (write(STDOUT_FILENO, &c, 1));
 	}
+	return (0);
 }
 
-int	ft_uintlen(unsigned int num)
+int	ft_hexlen(unsigned int num)
 {
 	int	ret;
 
 	ret = 0;
-	while (num > 9)
+	while (num > 15)
 	{
-		num /= 10;
+		num /= 16;
 		ret++;
 	}
 	ret++;
 	return (ret);
 }
 
-int	ft_printuint(unsigned int num)
+int	ft_printhex(unsigned int num, char format)
 {
 	int	ret;
 
-	ret = ft_uintlen(num);
-	ft_putuint(num);
+	if (-1 == ft_puthex(num, format))
+		return (-1);
+	ret = ft_hexlen(num);
 	return (ret);
 }

@@ -1,20 +1,24 @@
 NAME = libftprintf.a
 
-CC = cc
-INCDIR=./include
-CFLAGS = -Wall -Wextra -Werror -I$(INCDIR)
+INCDIR = include/
 
-SRC = ft_printf.c ft_printhex.c ft_printint.c ft_printuint.c ft_printptr.c
+SRC_DIR = src/
+SRC_FILES = ft_printhex.c ft_printint.c ft_printuint.c ft_printptr.c ft_printf.c
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(SRC:.c=.o)
 
-LIBFTDIR = libft
-LIBFT = libft.a
 HEADER=$(INCDIR)/ft_printf.h
+
+LIBFTDIR = libft/
+LIBFT = libft.a
+
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -I$(INCDIR)
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@cp $(LIBFTDIR)/$(LIBFT) $(NAME)
+	@cp $(LIBFTDIR)$(LIBFT) $(NAME)
 	@ar rcs $(NAME) $(OBJ)
 	@echo "Archive $(NAME) created successfully!"
 

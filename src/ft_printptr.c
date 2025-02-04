@@ -6,23 +6,29 @@
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 21:12:00 by takawauc          #+#    #+#             */
-/*   Updated: 2025/02/01 15:40:49 by takawauc         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:43:23 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_printf.h"
 
-void	ft_putptr(uintptr_t num)
+int	ft_putptr(uintptr_t num)
 {
-	if (num > 15)
+	char	c;
+
+	if (num < 10)
 	{
-		ft_putptr(num / 16);
-		ft_putptr(num % 16);
+		c = '0' + num;
+		return (write(STDOUT_FILENO, &c, 1));
 	}
-	else if (num > 9)
-		ft_putchar_fd('a' + num - 10, STDOUT_FILENO);
-	else
-		ft_putchar_fd('0' + num, STDOUT_FILENO);
+	else if (num < 16)
+	{
+		c = 'a' + num - 10;
+		return (write(STDOUT_FILENO, &c, 1));
+	}
+	if (-1 == ft_putptr(num / 16) || -1 == ft_putptr(num % 16))
+		return (-1);
+	return (0);
 }
 
 int	ft_ptrlen(uintptr_t num)
@@ -45,18 +51,21 @@ int	ft_printptr(char *ptr)
 	uintptr_t	num;
 
 	if (!ptr)
-	{
-		ft_putstr_fd("(nil)", STDOUT_FILENO);
-		return (ft_strlen("(nil)"));
-	}
+		return (ft_printstr("(nil)"));
 	num = (unsigned long long)ptr;
-	ret = 0;
-	ret += write(1, "0x", 2);
+	if (-1 == write(1, "0x", 2))
+		return (-1);
+	ret = 2;
 	if (num == 0)
-		ret += write(1, "0", 1);
+	{
+		if (-1 == write(1, "0", 1))
+			return (-1);
+		ret++;
+	}
 	else
 	{
-		ft_putptr(num);
+		if (-1 == ft_putptr(num))
+			return (-1);
 		ret += ft_ptrlen(num);
 	}
 	return (ret);
