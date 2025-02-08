@@ -6,7 +6,7 @@
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 21:36:53 by takawauc          #+#    #+#             */
-/*   Updated: 2025/02/02 20:06:25 by takawauc         ###   ########.fr       */
+/*   Updated: 2025/02/08 10:14:03 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,48 @@ void	negative_test(void)
 	ft_printf("==========================\n\n\n");
 }
 
+int	main(void)
+{
+	positive_test();
+	negative_test();
+}
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 void	write_to_closed_stdout_test(void)
 {
 	int	out;
@@ -204,11 +246,4 @@ void	write_to_closed_stdout_test(void)
 	printf("HEx: expected %i, test %i\n", eout_x, tout_x);
 	printf("HEX: expected %i, test %i\n", eout_X, tout_X);
 	printf("==========================\n\n\n");
-}
-
-int	main(void)
-{
-	positive_test();
-	negative_test();
-	write_to_closed_stdout_test();
 }
