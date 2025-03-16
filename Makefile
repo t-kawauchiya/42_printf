@@ -41,4 +41,8 @@ fclean: clean
 
 re: fclean all
 
+test: re
+	@cc test.c -L. -lftprintf -o runtest
+	@./runtest
+
 .PHONY: all clean fclean re

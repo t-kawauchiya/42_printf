@@ -6,14 +6,19 @@
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 00:03:55 by TakeshiKawa       #+#    #+#             */
-/*   Updated: 2025/02/02 19:04:45 by takawauc         ###   ########.fr       */
+/*   Updated: 2025/02/21 21:29:44 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include "./libft.h"
+// # include "./libft.h"
+# include <limits.h>
 # include <stdarg.h>
+# include <stddef.h>
+# include <stdint.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 int	ft_printf(const char *format, ...);
 int	ft_format(char format, va_list args);

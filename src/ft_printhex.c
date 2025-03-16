@@ -6,11 +6,11 @@
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 20:33:41 by takawauc          #+#    #+#             */
-/*   Updated: 2025/02/02 19:04:27 by takawauc         ###   ########.fr       */
+/*   Updated: 2025/02/21 21:32:48 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./ft_printf.h"
+#include "../include/ft_printf.h"
 
 int	ft_puthex(unsigned int num, char format)
 {

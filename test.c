@@ -6,12 +6,23 @@
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 21:36:53 by takawauc          #+#    #+#             */
-/*   Updated: 2025/02/08 10:14:03 by takawauc         ###   ########.fr       */
+/*   Updated: 2025/03/16 14:27:11 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/ft_printf.h"
 #include <stdio.h>
+
+void	positive_test(void);
+void	negative_test(void);
+void	write_to_closed_stdout_test(void);
+
+int	main(void)
+{
+	positive_test();
+	negative_test();
+	write_to_closed_stdout_test();
+}
 
 void	positive_test(void)
 {
@@ -148,48 +159,6 @@ void	negative_test(void)
 	ft_printf("==========================\n\n\n");
 }
 
-int	main(void)
-{
-	positive_test();
-	negative_test();
-}
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 void	write_to_closed_stdout_test(void)
 {
 	int	out;
@@ -216,8 +185,8 @@ void	write_to_closed_stdout_test(void)
 	printf("====== Write to closed stdout =====\n");
 	saved_stdout = dup(1);
 	close(1);
-	eout = printf("NO_FORMAT");
-	tout = ft_printf("NO_FORMAT");
+	eout = printf("NO_FORMAT\n");
+	tout = ft_printf("NO_FORMAT\n");
 	eout_c = printf("%c\n", 'a');
 	tout_c = ft_printf("%c\n", 'a');
 	eout_s = printf("%s\n", "teststr");

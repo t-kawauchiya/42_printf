@@ -6,22 +6,22 @@
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 00:02:37 by TakeshiKawa       #+#    #+#             */
-/*   Updated: 2025/02/02 17:57:45 by takawauc         ###   ########.fr       */
+/*   Updated: 2025/02/21 21:32:42 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./ft_printf.h"
+#include "../include/ft_printf.h"
 
 int	ft_printstr(char *str)
 {
 	int	ret;
 
+	ret = 0;
 	if (!str)
 		str = "(null)";
-	ret = ft_strlen(str);
-	if (-1 == write(1, str, ret))
-		return (-1);
-	return (ret);
+	while (str[ret])
+		ret++;
+	return (write(1, str, ret));
 }
 
 int	ft_printchar(int num)

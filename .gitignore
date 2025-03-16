@@ -1,0 +1,12 @@
+test/*
+unity*
+test*
+a.out
+README.md
+libft/*
+libft
+*.o
+*.a
+runtest
+setting.json
+libft/Makefile
