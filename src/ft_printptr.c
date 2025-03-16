@@ -6,7 +6,7 @@
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 21:12:00 by takawauc          #+#    #+#             */
-/*   Updated: 2025/02/21 21:33:38 by takawauc         ###   ########.fr       */
+/*   Updated: 2025/03/16 14:43:16 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 
 int	ft_putptr(uintptr_t num)
 {
-	char	c;
+	char	*hex_base_str;
 
-	if (num < 10)
+	hex_base_str = "0123456789abcdef";
+	if (num < 16)
 	{
-		c = '0' + num;
-		return (write(STDOUT_FILENO, &c, 1));
-	}
-	else if (num < 16)
-	{
-		c = 'a' + num - 10;
-		return (write(STDOUT_FILENO, &c, 1));
+		return (write(STDOUT_FILENO, &hex_base_str[num], 1));
 	}
 	if (-1 == ft_putptr(num / 16) || -1 == ft_putptr(num % 16))
 		return (-1);
@@ -35,13 +30,12 @@ int	ft_ptrlen(uintptr_t num)
 {
 	int	ret;
 
-	ret = 0;
+	ret = 1;
 	while (num > 15)
 	{
 		num /= 16;
 		ret++;
 	}
-	ret++;
 	return (ret);
 }
 

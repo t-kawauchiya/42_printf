@@ -6,7 +6,7 @@
 /*   By: takawauc <takawauc@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 20:33:41 by takawauc          #+#    #+#             */
-/*   Updated: 2025/02/21 21:32:48 by takawauc         ###   ########.fr       */
+/*   Updated: 2025/03/16 14:32:02 by takawauc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,18 @@ int	ft_hexlen(unsigned int num)
 {
 	int	ret;
 
-	ret = 0;
+	ret = 1;
 	while (num > 15)
 	{
 		num /= 16;
 		ret++;
 	}
-	ret++;
 	return (ret);
 }
 
 int	ft_printhex(unsigned int num, char format)
 {
-	int	ret;
-
 	if (-1 == ft_puthex(num, format))
 		return (-1);
-	ret = ft_hexlen(num);
-	return (ret);
+	return (ft_hexlen(num));
 }
